@@ -9,6 +9,8 @@
 
 * css (tailwindcss)
 - overflow-visible (Ensures the overflowing content is visible)
+- inset-x-0 bottom-0 (Elemanın sağ,sol ve alt kenardaki tüm alanları kaplamasını sağlar)
+- transform -translate-x-1/2 (elamanı yatayda ortalamak için kullanılır)
 
 
 * tutorial link 
