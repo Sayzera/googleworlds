@@ -11,6 +11,10 @@
 - overflow-visible (Ensures the overflowing content is visible)
 - inset-x-0 bottom-0 (Elemanın sağ,sol ve alt kenardaki tüm alanları kaplamasını sağlar)
 - transform -translate-x-1/2 (elamanı yatayda ortalamak için kullanılır)
+    - absolute left-1/2 top-4 transform -translate-x-1/2 (örnek)
+- absolute top-1/2 transform -translate-y-1/2 (Dikeyde ortalamak için kullanılır)
+- focus-visible (klavye olaylarında odaklandığında olur örneğin tab tuşu ile odaklanma)
+- Bir divin içindeki elemanlara erişmek için ([&_svg]:size-5) gibi bir kullanım yapılabilir.
 
 
 * tutorial link 
@@ -19,3 +23,8 @@
 * where was it 
 - 1:20.53 
 
+* VSCode
+- Yazıları alta alma özelliği (Word Wrap) --> Settings
+
+* Algoritma
+- Bir objebin mouse ile yatayda gerçek konumunu alabilmek için mousenin x değerinin alıp ve divin sol kenarının x değerini çıkartarak elde edebiliriz.
