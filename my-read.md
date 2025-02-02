@@ -28,3 +28,6 @@
 
 * Algoritma
 - Bir objebin mouse ile yatayda gerçek konumunu alabilmek için mousenin x değerinin alıp ve divin sol kenarının x değerini çıkartarak elde edebiliriz.
+
+* convex
+- npx convex dev (Değişiklik yapmak için çalıştırılır ve çalıştığı süre boyunca değişikleri kaydettiğimizde otomatik dbde kaydedilir)

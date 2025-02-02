@@ -2,20 +2,37 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SearchIcon, XIcon } from "lucide-react";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import { useSearchParam } from "@/hooks/use-search-param";
 
 export const SearchInput = () => {
-  const [value, setValue] = useState<string>();
+  const [search, setSearch] = useSearchParam("search");
+  const [value, setValue] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
+
+  const handleClear = () => {
+    setValue("");
+    setSearch("");
+    inputRef.current?.blur();
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSearch(value);
+    inputRef.current?.blur();
+  };
   return (
     <div className="flex-1 flex items-center justify-center">
-      <form className="relative max-w-[720px] w-full">
+      <form 
+      onSubmit={handleSubmit}
+      className="relative max-w-[720px] w-full">
         <Input
           value={value}
+          name="search"
           placeholder="Search"
           className="md:text-base placeholder:text-neutral-800 
                  px-14 w-full border-none 
@@ -34,9 +51,7 @@ export const SearchInput = () => {
 
         {value && (
           <Button
-            onClick={() => {
-              setValue("");
-            }}
+            onClick={handleClear}
             type="button"
             variant={"ghost"}
             size={"icon"}

@@ -27,8 +27,7 @@ type MyComponentProps = {
   message: string;
 };
 
-const MyComponent: React.FC<MyComponentProps> = (props) => {
-    console.log(props,'MyComponent');
+const MyComponent: React.FC<MyComponentProps & WithLoggerProps> = (props) => {
   return <div></div>;
 };
 

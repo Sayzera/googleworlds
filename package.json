@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.22.10",
+    "@clerk/nextjs": "^6.10.6",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.4",
@@ -58,6 +60,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "convex": "^1.18.2",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.5.2",
     "input-otp": "^1.4.2",
@@ -66,6 +69,7 @@
     "next": "15.0.3",
     "next-themes": "^0.4.4",
     "npm": "^11.0.0",
+    "nuqs": "^2.3.1",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-color": "^2.19.3",
     "react-day-picker": "^8.10.1",
