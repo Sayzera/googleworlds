@@ -15,6 +15,7 @@
 - absolute top-1/2 transform -translate-y-1/2 (Dikeyde ortalamak için kullanılır)
 - focus-visible (klavye olaylarında odaklandığında olur örneğin tab tuşu ile odaklanma)
 - Bir divin içindeki elemanlara erişmek için ([&_svg]:size-5) gibi bir kullanım yapılabilir.
+- fill-blue-500 svg elemanlarının rengini ayarlamak için kullanılır
 
 
 * tutorial link 

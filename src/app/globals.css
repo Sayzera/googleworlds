@@ -269,4 +269,10 @@ html {
       cursor: pointer;
     }
   }
+
+  
+}
+
+.pageDefaultWith {
+  @apply max-w-screen-xl mx-auto px-16 py-6 flex flex-col
 }

@@ -10,13 +10,35 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
+import { useMutation } from "@tanstack/react-query";
+import { useConvexMutation } from "@convex-dev/react-query";
+import { api } from "../../../convex/_generated/api";
 
 export const TemplatesGallery = () => {
-  const isCreating = false;
+  const {
+    mutate: createDocument,
+    isPending: isCreating,
+    isSuccess: isCreated,
+  } = useMutation({
+    mutationFn: useConvexMutation(api.documents.create),
+    onError: (error) => {
+      console.error(error);
+    },
+    onSuccess: (data) => {
+      console.log(data, 'success');
+    },
+    onSettled: (data) => {
+      console.log(data, "settled");
+    },
+  });
+
+  const onTemplateClick = (title: string, initialContent: string) => {
+    createDocument({ title, initialContent });
+  };
+
   return (
     <div className="bg-[#F1F3F4]">
-      <div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-y-4">
+      <div className="pageDefaultWith gap-y-4">
         <h3 className=" font-medium">Start a new document</h3>
         <Carousel>
           <CarouselContent className="-ml-4">
@@ -33,7 +55,10 @@ export const TemplatesGallery = () => {
                 >
                   <Button
                     disabled={isCreating}
-                    onClick={() => {}}
+                    onClick={() => {
+                      onTemplateClick(template.label, "");
+                    }}
+                    // TODO: Add proper initial content
                     style={{
                       backgroundImage: `url(${template.imageUrl})`,
                       backgroundSize: "cover",
