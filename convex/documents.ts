@@ -29,3 +29,33 @@ export const get = query({
     return foo;
   },
 });
+
+export const removeById = mutation({
+  args: { id: v.id("documents") },
+  handler: async (ctx, args) => {
+    const user = await ctx.auth.getUserIdentity();
+    if (!user) {
+      throw new ConvexError("Unauthorized");
+    }
+
+    /**
+     * Kaydın varliğini sorgular id vermemiz yeterli tabloyu belirtmeye gerek yok
+     */
+    const documents = await ctx.db.get(args.id);
+
+    if (!documents) {
+      throw new ConvexError("Document not found");
+    }
+
+    const isOwner = documents.ownerId === user.subject;
+
+    /**
+     * Kaydı silen kişinin kaydın sahibi olup olmadığını kontrol eder
+     */
+    if (!isOwner) {
+      throw new ConvexError("Unauthorized");
+    }
+
+    return await ctx.db.delete(args.id);
+  },
+});

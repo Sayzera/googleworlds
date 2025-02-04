@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table";
 import { LoaderIcon } from "lucide-react";
 import { DocumentRow } from "./document-row";
+import { useMemo } from "react";
 
 interface DocumentsTableProps {
   documents: Doc<"documents">[] | undefined;
@@ -34,8 +35,8 @@ export const DocumentsTable = ({
             <TableRow className="hover:bg-transparent border-none">
               <TableHead className="w-[100px]">Name</TableHead>
               <TableHead>&nbsp;</TableHead>
-              <TableHead className="hidden md:flex">Shared</TableHead>
-              <TableHead className="text-right">Created at</TableHead>
+              <TableHead className="hidden md:table-cell">Shared</TableHead>
+              <TableHead className="hidden md:table-cell">Created at</TableHead>
             </TableRow>
           </TableHeader>
           {documents.length === 0 ? (
@@ -51,12 +52,11 @@ export const DocumentsTable = ({
             </TableBody>
           ) : (
             <TableBody>
-              {documents.map((document) => (
+              {documents?.map((document) => (
                 <DocumentRow key={document._id} document={document} />
               ))}
             </TableBody>
           )}
-         
         </Table>
       )}
     </div>
