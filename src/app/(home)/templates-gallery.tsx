@@ -13,8 +13,10 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { useConvexMutation } from "@convex-dev/react-query";
 import { api } from "../../../convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 export const TemplatesGallery = () => {
+  const router = useRouter();
   const {
     mutate: createDocument,
     isPending: isCreating,
@@ -25,7 +27,8 @@ export const TemplatesGallery = () => {
       console.error(error);
     },
     onSuccess: (data) => {
-      console.log(data, 'success');
+      router.push(`/documents/${data}`);
+
     },
     onSettled: (data) => {
       console.log(data, "settled");

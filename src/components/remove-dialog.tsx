@@ -36,7 +36,9 @@ export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction
+          disabled={isPending}
             onClick={(e) => {
               e.stopPropagation();
               mutate({
@@ -44,9 +46,8 @@ export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
               });
             }}
           >
-            Cancel
-          </AlertDialogCancel>
-          <AlertDialogAction>Delete</AlertDialogAction>
+            Delete
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -12,6 +12,7 @@ import {
 import { LoaderIcon } from "lucide-react";
 import { DocumentRow } from "./document-row";
 import { useMemo } from "react";
+import { Button } from "@/components/ui/button";
 
 interface DocumentsTableProps {
   documents: Doc<"documents">[] | undefined;
@@ -23,6 +24,7 @@ export const DocumentsTable = ({
   loadMore,
   status,
 }: DocumentsTableProps) => {
+  console.log(status, "status");
   return (
     <div className="pageDefaultWith gap-5 ">
       {documents === undefined ? (
@@ -59,6 +61,19 @@ export const DocumentsTable = ({
           )}
         </Table>
       )}
+      <div className="flex items-center justify-center">
+        <Button
+          variant={"ghost"}
+          size={"sm"}
+          onClick={() => loadMore(5)}
+          disabled={status !== "CanLoadMore"}
+        >
+         Load More
+          {status === "LoadingMore" && (
+            <LoaderIcon className="size-4 animate-spin text-muted-foreground" />
+          )}
+        </Button>
+      </div>
     </div>
   );
 };
