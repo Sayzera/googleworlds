@@ -23,8 +23,17 @@ export const create = mutation({
 });
 
 export const get = query({
-  args: { paginationOpts: paginationOptsValidator },
+  args: {
+    paginationOpts: paginationOptsValidator,
+    search: v.optional(v.string()),
+  },
   handler: async (ctx, args) => {
+    const user = await ctx.auth.getUserIdentity();
+    if(!user) {
+     throw new ConvexError("Unauthorized");
+    }
+
+    
     const foo = await ctx.db.query("documents").paginate(args.paginationOpts);
     return foo;
   },
@@ -87,7 +96,7 @@ export const updateById = mutation({
     }
 
     return await ctx.db.patch(args.id, {
-      title: args.title
+      title: args.title,
     });
   },
 });
