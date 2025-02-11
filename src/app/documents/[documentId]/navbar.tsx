@@ -38,8 +38,17 @@ import {
 import { DocumentInput } from "./document-input";
 import { BsFilePdf } from "react-icons/bs";
 import { useEditorStore } from "@/store/use-editor-store";
+import { OrganizationSwitcher, UserButton } from "@clerk/clerk-react";
+import { Avatars } from "./avatars";
+import { Inbox } from "./inbox";
+import { Doc } from "../../../../convex/_generated/dataModel";
 
-export const Navbar = () => {
+interface NavbarProps {
+  data: Doc<'documents'> | null;
+}
+export const Navbar = ({
+  data
+}: NavbarProps) => {
   const { editor } = useEditorStore();
   const insertTable = ({ rows, cols }: { rows: number; cols: number }) => {
     editor
@@ -63,7 +72,7 @@ export const Navbar = () => {
 
     const json = editor.getJSON();
     const blob = new Blob([JSON.stringify(json)], { type: "application/json" });
-    onDownloand(blob, "document.json"); // TODO: Use document name
+    onDownloand(blob, `${data?.title}.json`); // TODO: Use document name
   }
 
   const onSaveHTML = () => {
@@ -71,7 +80,7 @@ export const Navbar = () => {
     const content = editor?.getHTML();
     const blob = new Blob([content], { type: "text/html" });
 
-    onDownloand(blob, "document.html");     
+    onDownloand(blob, `${data?.title}.html`);
   }
 
   const onSaveText = () => {
@@ -79,7 +88,7 @@ export const Navbar = () => {
     const content = editor.getText();
     const blob = new Blob([content], { type: "text/plain" });
 
-    onDownloand(blob, "document.txt");
+    onDownloand(blob,  `${data?.title}.txt`);
   }
 
   return (
@@ -90,7 +99,10 @@ export const Navbar = () => {
         </Link>
         <div className="flex flex-col">
           {/* DocumentInput */}
-          <DocumentInput />
+          <DocumentInput 
+           title={data?.title}
+           id={data?._id}
+          />
           {/* MenuBar  */}
           <div className="flex">
             <Menubar className="border-none bg-transparent shadow-none h-auto p-0">
@@ -273,6 +285,17 @@ export const Navbar = () => {
             </Menubar>
           </div>
         </div>
+      </div>
+      <div className="flex gap-3 items-center">
+        <Avatars />
+        <Inbox />
+        <OrganizationSwitcher
+          afterCreateOrganizationUrl="/"
+          afterLeaveOrganizationUrl="/"
+          afterSelectOrganizationUrl="/"
+          afterSelectPersonalUrl="/"
+        />
+        <UserButton />
       </div>
     </nav>
   );

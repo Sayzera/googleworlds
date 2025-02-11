@@ -24,7 +24,6 @@ export const DocumentsTable = ({
   loadMore,
   status,
 }: DocumentsTableProps) => {
-  console.log(status, "status");
   return (
     <div className="pageDefaultWith gap-5 ">
       {documents === undefined ? (
@@ -68,7 +67,11 @@ export const DocumentsTable = ({
           onClick={() => loadMore(5)}
           disabled={status !== "CanLoadMore"}
         >
-         Load More
+          {status === "CanLoadMore"
+            ? "Load More"
+            : status === "LoadingMore"
+              ? "Loading..."
+              : "No more documents"}
           {status === "LoadingMore" && (
             <LoaderIcon className="size-4 animate-spin text-muted-foreground" />
           )}

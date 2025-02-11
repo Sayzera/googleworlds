@@ -687,8 +687,10 @@ function Toolbar({}: Props) {
       {
         label: "Comment",
         icon: MessageSquarePlusIcon,
-        onClick: () => {},
-        isActive: false,
+        onClick: () => {
+          editor?.chain().focus().addPendingComment().run();
+        },
+        isActive: editor?.isActive('liveblockCommentMark'),
       },
       {
         label: "List Todo",

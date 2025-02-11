@@ -17,6 +17,7 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface RenameDialogProps {
   documentId: Id<"documents">;
@@ -33,6 +34,12 @@ export const RenameDialog = ({
   const [title, setTitle] = useState(initalTitle);
   const { mutate, isPending } = useMutation({
     mutationFn: useConvexMutation(api.documents.updateById),
+    onSuccess: () => {
+      toast.success("Document updated");
+    },
+    onError: (error) => {
+      toast.error('Something went wrong');
+    }
   });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

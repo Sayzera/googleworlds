@@ -2,24 +2,22 @@
 import React from "react";
 import { Navbar } from "./navbar";
 import { TemplatesGallery } from "./templates-gallery";
-import { usePaginatedQuery, useQuery } from "convex/react";
+import { usePaginatedQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { DocumentsTable } from "./document-table";
+import { useSearchParam } from "@/hooks/use-search-param";
 
 type Props = {};
 
 function Home({}: Props) {
-
+  const [search, searchParams] = useSearchParam("search");
   const { results, status, loadMore } = usePaginatedQuery(
     api.documents.get,
-    {},
-    { initialNumItems: 5 },
-  )
-
-
-
-
-
+    {
+      search,
+    },
+    { initialNumItems: 5 }
+  );
 
   return (
     <div className="min-h-screen flex flex-col">

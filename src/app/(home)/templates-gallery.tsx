@@ -14,6 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useConvexMutation } from "@convex-dev/react-query";
 import { api } from "../../../convex/_generated/api";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export const TemplatesGallery = () => {
   const router = useRouter();
@@ -24,14 +25,12 @@ export const TemplatesGallery = () => {
   } = useMutation({
     mutationFn: useConvexMutation(api.documents.create),
     onError: (error) => {
-      console.error(error);
+      toast.error("Something went wrong");
     },
     onSuccess: (data) => {
       router.push(`/documents/${data}`);
+      toast.success("Document created successfully");
 
-    },
-    onSettled: (data) => {
-      console.log(data, "settled");
     },
   });
 

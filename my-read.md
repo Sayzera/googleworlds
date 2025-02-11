@@ -32,3 +32,5 @@
 
 * convex
 - npx convex dev (Değişiklik yapmak için çalıştırılır ve çalıştığı süre boyunca değişikleri kaydettiğimizde otomatik dbde kaydedilir)
+
+* liveblocks

@@ -1,26 +1,31 @@
-import React from "react";
-import { Editor } from "./editor";
-import Toolbar from "./toolbar";
-import { Navbar } from "./navbar";
+import { preloadQuery } from "convex/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { Id } from "../../../../convex/_generated/dataModel";
+import { Document } from "./document";
+import { api } from "../../../../convex/_generated/api";
 
-type Props = {
-  params: Promise<{ documentsId: string }>;
-};
+interface DocumentIdPageProps {
+  params: Promise<{ documentId: Id<"documents"> }>;
+}
 
-async function DocumentIdPage({ params }: Props) {
-  const { documentsId } = await params;
+async function DocumentIdPage({ params }: DocumentIdPageProps) {
+  const { documentId } = await params;
+  const { getToken } = await auth();
+  const token = (await getToken({ template: "convex" })) ?? undefined;
 
-  return (
-    <div className="min-h-screen bg-[#F9FBFD]">
-      <div className="flex flex-col px-4 gap-y-2 fixed top-0 inset-x-0  z-10 bg-[#FaFBFD] print:hidden h-[112px]">
-        <Navbar />
-        <Toolbar />
-      </div>
-      <div className="pt-[114px] print:pt-0">
-        <Editor />
-      </div>
-    </div>
+  if (!token) {
+    throw new Error("Unauthorized");
+  }
+
+  const preloadedDocument = await preloadQuery(
+    api.documents.getById,
+    { id: documentId },
+    { token }
   );
+
+  console.log(preloadedDocument, 'preloadedDocument')
+
+  return <Document preloadedDocument={preloadedDocument} />;
 }
 
 export default DocumentIdPage;

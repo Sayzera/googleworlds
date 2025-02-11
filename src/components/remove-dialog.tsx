@@ -14,6 +14,7 @@ import { Id } from "../../convex/_generated/dataModel";
 import { useMutation } from "@tanstack/react-query";
 import { useConvexMutation } from "@convex-dev/react-query";
 import { api } from "../../convex/_generated/api";
+import { toast } from "sonner";
 
 interface RemoveDialogProps {
   documentId: Id<"documents">;
@@ -23,7 +24,13 @@ interface RemoveDialogProps {
 export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
   const { mutate, isPending } = useMutation({
     mutationFn: useConvexMutation(api.documents.removeById),
-  });
+    onSuccess: () => {
+      toast.success("Document deleted successfully.");
+    },
+    onError: (error) => {
+      toast.error('Bilinmeyen bir hata oluştu.');
+    }
+  }, );
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
@@ -43,7 +50,7 @@ export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
               e.stopPropagation();
               mutate({
                 id: documentId,
-              });
+              })
             }}
           >
             Delete
