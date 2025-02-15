@@ -22,17 +22,27 @@ import TextAlign from '@tiptap/extension-text-align'
 import { useEditorStore } from "@/store/use-editor-store";
 import { FontSizeExtension } from "@/extensions/font-size";
 import { LineHeightExtension } from "@/extensions/line-height";
-import { Ruler } from "./ruler";
 import { useStorage } from "@liveblocks/react";
-
 import { useLiveblocksExtension, FloatingToolbar } from "@liveblocks/react-tiptap";
+
 import { Threads } from "./threads";
+import { Ruler } from "./ruler";
+import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from "@/constants/margin";
 
-export const Editor = () => {
-  const leftMargin = useStorage((root) => root.leftMargin)
-  const rightMargin = useStorage((root) => root.rightMargin)
+interface EditorProps {
+  initialContent: string | undefined
+}
 
-  const liveblocks = useLiveblocksExtension();
+export const Editor = ({
+  initialContent
+}:EditorProps) => {
+  const leftMargin = useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT
+  const rightMargin = useStorage((root) => root.rightMargin) ?? RIGHT_MARGIN_DEFAULT
+
+  const liveblocks = useLiveblocksExtension({
+    initialContent,
+    offlineSupport_experimental:true
+  });
   const { setEditor } = useEditorStore();
   const editor = useEditor({
     immediatelyRender:false,
@@ -62,7 +72,7 @@ export const Editor = () => {
     },
     editorProps: {
       attributes: {
-        style: `padding-left:${leftMargin ?? 56}px; padding-right:${rightMargin}px;padding-top:${leftMargin ?? 56}`,
+        style: `padding-left:${leftMargin ?? LEFT_MARGIN_DEFAULT}px; padding-right:${rightMargin}px;padding-top:${leftMargin ?? RIGHT_MARGIN_DEFAULT}`,
         class:
           "focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-1",
       },

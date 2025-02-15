@@ -1,4 +1,11 @@
 "use client";
+
+import { useRouter } from "next/navigation";
+
+import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
+import { useConvexMutation } from "@convex-dev/react-query";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,11 +17,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+
 import { Id } from "../../convex/_generated/dataModel";
-import { useMutation } from "@tanstack/react-query";
-import { useConvexMutation } from "@convex-dev/react-query";
 import { api } from "../../convex/_generated/api";
-import { toast } from "sonner";
 
 interface RemoveDialogProps {
   documentId: Id<"documents">;
@@ -22,10 +27,12 @@ interface RemoveDialogProps {
 }
 
 export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
+  const router = useRouter();
   const { mutate, isPending } = useMutation({
     mutationFn: useConvexMutation(api.documents.removeById),
     onSuccess: () => {
       toast.success("Document deleted successfully.");
+      router.push('/')
     },
     onError: (error) => {
       toast.error('Bilinmeyen bir hata oluştu.');

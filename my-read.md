@@ -16,10 +16,12 @@
 - focus-visible (klavye olaylarında odaklandığında olur örneğin tab tuşu ile odaklanma)
 - Bir divin içindeki elemanlara erişmek için ([&_svg]:size-5) gibi bir kullanım yapılabilir.
 - fill-blue-500 svg elemanlarının rengini ayarlamak için kullanılır
-
+-  w-fit divin boyutu içeriği kadar olur
+- absolute inset-0  relative verilen elemanın genişliği ve yüksekliği kadar boyutu olur 
 
 * tutorial link 
 - https://www.youtube.com/watch?v=gq2bbDmSokU&t=4853s
+- https://www.youtube.com/watch?v=s28yOCBVgGw
 
 * where was it 
 - 1:20.53 

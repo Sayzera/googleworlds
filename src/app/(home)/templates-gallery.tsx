@@ -58,7 +58,7 @@ export const TemplatesGallery = () => {
                   <Button
                     disabled={isCreating}
                     onClick={() => {
-                      onTemplateClick(template.label, "");
+                      onTemplateClick(template.label, template.initialContent);
                     }}
                     // TODO: Add proper initial content
                     style={{

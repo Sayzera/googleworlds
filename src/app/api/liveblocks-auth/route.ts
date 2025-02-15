@@ -9,6 +9,8 @@ const liveblocks = new Liveblocks({
   secret: process.env.LIVEBLOCKS_SECRET_KEY!,
 });
 
+const colors = ["green", "red","orange", "pink", "blue"];
+
 export async function POST(req: Request) {
   const { sessionClaims } = await auth();
 
@@ -40,10 +42,23 @@ export async function POST(req: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
+  let fullname = '';
+
+  if(user?.firstName && user?.lastName) {
+    fullname = user?.firstName + ' ' + user?.lastName;
+  }
+
+  console.log(user, 'test123')
+
+  const name =   fullname || 'Anonymous'
+  const nameToNumber = name.split("").reduce((acc,char) => acc + char.charCodeAt(0),0)
+  const hue = Math.abs(nameToNumber) % 360;
+  const color = `hsl(${hue}, 80%,60%)`
   const session = liveblocks.prepareSession(user.id, {
     userInfo: {
-      name: user?.fullName ??  user?.primaryEmailAddress ??   "Anonymous",
-      avatar: user?.imageUrl,
+      name,
+      avatar:user?.imageUrl,
+      color,
     },
   });
 

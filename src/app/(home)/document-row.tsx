@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 interface DocumentRowProps {
   document: Doc<"documents">;
 }
-export const DocumentRow = memo(({ document }: DocumentRowProps) => {
+ const DocumentRowComponent =({ document }: DocumentRowProps) => {
   const router = useRouter();
 
   return (
@@ -42,4 +42,8 @@ export const DocumentRow = memo(({ document }: DocumentRowProps) => {
       </TableCell>
     </TableRow>
   );
-});
+};
+
+const DocumentRow = memo(DocumentRowComponent);
+DocumentRow.displayName = "DocumentRow";
+export { DocumentRow };
