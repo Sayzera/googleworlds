@@ -1,6 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
 import { templates } from "@/constants/templates";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,9 +14,9 @@ import {
 } from "@/components/ui/carousel";
 import { useMutation } from "@tanstack/react-query";
 import { useConvexMutation } from "@convex-dev/react-query";
+import { cn } from "@/lib/utils";
+
 import { api } from "../../../convex/_generated/api";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 export const TemplatesGallery = () => {
   const router = useRouter();
@@ -30,7 +32,6 @@ export const TemplatesGallery = () => {
     onSuccess: (data) => {
       router.push(`/documents/${data}`);
       toast.success("Document created successfully");
-
     },
   });
 

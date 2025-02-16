@@ -48,7 +48,6 @@ export async function POST(req: Request) {
     fullname = user?.firstName + ' ' + user?.lastName;
   }
 
-  console.log(user, 'test123')
 
   const name =   fullname || 'Anonymous'
   const nameToNumber = name.split("").reduce((acc,char) => acc + char.charCodeAt(0),0)

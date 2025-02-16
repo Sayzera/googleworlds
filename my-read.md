@@ -22,12 +22,17 @@
 * tutorial link 
 - https://www.youtube.com/watch?v=gq2bbDmSokU&t=4853s
 - https://www.youtube.com/watch?v=s28yOCBVgGw
-
+- https://www.tubeguruji.com/
 * where was it 
 - 1:20.53 
 
 * VSCode
 - Yazıları alta alma özelliği (Word Wrap) --> Settings
+
+* Theme 
+- daisyui
+
+* https://www.hyperui.dev/ (Hazır komponentler)
 
 * Algoritma
 - Bir objebin mouse ile yatayda gerçek konumunu alabilmek için mousenin x değerinin alıp ve divin sol kenarının x değerini çıkartarak elde edebiliriz.
@@ -36,3 +41,8 @@
 - npx convex dev (Değişiklik yapmak için çalıştırılır ve çalıştığı süre boyunca değişikleri kaydettiğimizde otomatik dbde kaydedilir)
 
 * liveblocks
+
+
+* windows
+- netstat -ano | findstr :PORT_NUMARASI (Açık portları listeler)
+- taskkill /F /PID 1234

@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { ReactNode } from "react";
 import {
-  Authenticated,
   AuthLoading,
   ConvexReactClient,
   Unauthenticated,
@@ -39,7 +38,7 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <ClerkProvider publishableKey={PUBLISHABLE_KEY!}>
         <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-          <Authenticated>{children}</Authenticated>
+          {children}
           <Unauthenticated>
             <div className="flex flex-col items-center justify-center  min-h-screen">
               <SignIn routing="hash" />
