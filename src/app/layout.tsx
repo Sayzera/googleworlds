@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ConvexClientProvider } from "@/components/convex-client.provider";
 import "@liveblocks/react-ui/styles.css";
 import "@liveblocks/react-tiptap/styles.css";
+import ReduxProvider from "@/providers/redux-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,13 +24,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme='emerald'>
+    <html lang="en" data-theme="emerald">
       <body className={inter.className}>
+        <ReduxProvider>
           <ConvexClientProvider>
             <Toaster />
             <NuqsAdapter>{children}</NuqsAdapter>
           </ConvexClientProvider>
-          
+        </ReduxProvider>
       </body>
     </html>
   );

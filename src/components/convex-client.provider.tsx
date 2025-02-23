@@ -36,7 +36,8 @@ if (!PUBLISHABLE_KEY) {
 export function ConvexClientProvider({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY!}>
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY!}
+      >
         <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
           {children}
           <Unauthenticated>

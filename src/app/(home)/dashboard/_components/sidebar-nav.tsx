@@ -8,6 +8,7 @@ import {
   SquareLibrary,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 
 type Props = {};
 
@@ -59,6 +60,13 @@ export const SidebarNav = ({}: Props) => {
       </div>
       <div className="fixed bottom-20 p-6 w-64">
         <Button className="w-full">+ Create Form</Button>
+        <div className="my-3">
+          <Progress value={33} />
+          <h2 className="text-sm mt-2 text-muted-foreground">
+            <strong>2</strong>&nbsp;Out of <strong>3</strong><span>File Created</span>
+          </h2>
+          <div className="text-xs mt-4 text-muted-foreground">Upgrade your plan for unlimited AI from</div>
+        </div>
       </div>
     </div>
   );

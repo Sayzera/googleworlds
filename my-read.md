@@ -21,8 +21,8 @@
 
 * tutorial link 
 - https://www.youtube.com/watch?v=gq2bbDmSokU&t=4853s
-- https://www.youtube.com/watch?v=s28yOCBVgGw
-- https://www.tubeguruji.com/
+- https://www.youtube.com/watch?v=s28yOCBVgGw (1.04)
+- https://www.tubeguruji.com/ 
 * where was it 
 - 1:20.53 
 
