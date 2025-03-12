@@ -8,6 +8,7 @@ import { ConvexClientProvider } from "@/components/convex-client.provider";
 import "@liveblocks/react-ui/styles.css";
 import "@liveblocks/react-tiptap/styles.css";
 import ReduxProvider from "@/providers/redux-provider";
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({
   subsets: ["latin"],
