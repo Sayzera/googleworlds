@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "db:push": "npx prisma generate && npx prisma db push",
-    "db:studio": "npx prisma studio"
+    "db:studio": "npx prisma studio",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.22.10",
