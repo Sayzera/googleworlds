@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReduxProvider>
           <ConvexClientProvider>
-            <Toaster />
+            <Toaster richColors />
             <NuqsAdapter>{children}</NuqsAdapter>
           </ConvexClientProvider>
         </ReduxProvider>

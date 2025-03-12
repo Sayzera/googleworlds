@@ -40,11 +40,11 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
       >
         <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
           {children}
-          <Unauthenticated>
+          {/* <Unauthenticated>
             <div className="flex flex-col items-center justify-center  min-h-screen">
               <SignIn routing="hash" />
             </div>
-          </Unauthenticated>
+          </Unauthenticated> */}
           <AuthLoading>
             <FullScreenLoader label="Loading" />
           </AuthLoading>

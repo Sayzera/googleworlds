@@ -36,9 +36,30 @@ const main_api = createApi({
         return { data: response };
       },
     }),
+    customGet: builder.query<
+      {
+        success: boolean;
+        message: string;
+        data: any;
+      }, // Dönen cevap
+      {
+        mutation: (mutationArgs: any) => Promise<any>;
+        mutationArgs: any;
+      }
+    >({
+      queryFn: async ({ mutation, mutationArgs }) => {
+        const response = await mutation(mutationArgs);
+
+        return { data: response };
+      },
+    }),
   }),
 });
 
-export const { useCustomActionMutation } = main_api;
+export const {
+  useCustomActionMutation,
+  useCustomGetQuery,
+  useLazyCustomGetQuery,
+} = main_api;
 
 export default main_api;

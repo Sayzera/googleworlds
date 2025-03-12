@@ -26,72 +26,18 @@ export const CreateForm = () => {
     useCustomActionMutation();
   const { user } = useUser();
 
-  const PROMPT = `,"Merhaba Yapay Zeka,
+  const PROMPT = `,"
+"Bana belirttiğim alanlar doğrultusunda JSON formatında bir form yapısı oluştur. Form şu kurallara uygun olmalı:
 
-Senden bana belirli bir veri yapısına sahip, JSON formatında bir çıktı oluşturmanı istiyorum. Bu çıktı, bir form tanımını temsil edecek ve aşağıdaki özelliklere sahip olacak:
+Her alan için 'type', 'name', 'label' ve gerekirse 'placeholder' içermeli.
+Eğer alan bir seçenek içeriyorsa, 'options' dizisi içinde 'value' ve 'label' olacak şekilde tanımlanmalı.
+Zorunlu alanlar için 'required' özelliği kullanılmalı.
+Placeholder ekle.
+Çıktıyı sadece JSON formatında üret, ek açıklamalar ekleme."
+Tipi select olanlarada placeholder ekle.
 
-Amaç: Bir formun yapısını tanımlayan, makine tarafından okunabilir bir JSON nesnesi oluşturmak.
 
-Beklenen Yapı:
-
-Kök Düzey:
-
-formName: Formun adını temsil eden bir metin dizesi (string). Örneğin: "Müşteri Kayıt Formu".
-
-formDescription: Formun amacını kısaca açıklayan bir metin dizesi (string). Örneğin: "Yeni müşterilerin sisteme kaydolmasını sağlar."
-
-formFields: Formdaki alanların tanımlarını içeren bir dizi (array) nesnesi. Her nesne bir alanı temsil eder.
-
-formFields Dizisindeki Her Bir Alan Nesnesi:
-
-type: Alanın türünü belirten bir metin dizesi (string). Olası değerler şunlardır:
-
-text: Tek satırlık metin girişi.
-
-email: E-posta adresi girişi (doğrulama içerebilir).
-
-textarea: Çok satırlık metin girişi.
-
-select: Açılır liste (seçim kutusu).
-
-checkbox: Onay kutusu.
-
-radio: Radyo düğmeleri (tek seçim).
-
-number: Sayısal giriş.
-
-date: Tarih girişi.
-
-file: Dosya yükleme alanı.
-
-password: Şifre girişi (gizli).
-
-name: Alanın benzersiz adını (kimliğini) temsil eden bir metin dizesi (string). Bu ad, sunucu tarafında veriyi almak için kullanılacak. Örneğin: "adSoyad", "emailAdresi", "mesaj".
-
-label: Alanın kullanıcı arayüzünde (UI) görüntülenecek, kullanıcı dostu etiketini temsil eden bir metin dizesi (string). Örneğin: "Adınız ve Soyadınız", "E-posta Adresiniz", "Mesajınız".
-
-placeholder (isteğe bağlı): Alan boşken içinde görüntülenecek ipucu metnini temsil eden bir metin dizesi (string). Örneğin: "Adınızı girin", "ornek@eposta.com".
-
-options (yalnızca select ve radio türleri için gereklidir): Her biri value (değeri temsil eden metin dizesi) ve label (görüntülenen metni temsil eden metin dizesi) özelliklerini içeren seçeneklerin bir dizisi (array).
-
-value (isteğe bağlı): Alanın varsayılan değerini temsil eden bir metin dizesi (string).
-
-required (isteğe bağlı): Alanın doldurulmasının zorunlu olup olmadığını belirten bir boolean değeri (true veya false).
-
-pattern (isteğe bağlı): Alanın değerini doğrulamak için kullanılacak bir düzenli ifadeyi (regex) temsil eden bir metin dizesi (string).
-
-Önemli:
-
-Çıktın kesinlikle geçerli bir JSON nesnesi olmalı. String formatında bir JSON dizesi istemiyorum; direkt olarak JSON'u temsil eden bir veri yapısı istiyorum.
-
-Lütfen her alan için en az type, name ve label özelliklerini ekleyin.
-
-options özelliğini yalnızca select ve radio alanları için kullanın.
-
-İsteğe bağlı özellikleri gerektiğinde kullanın.
-
-Örnek: (Bu sadece bir örnek, tam olarak aynısını üretmek zorunda değilsin!)
-
+Örnek olarak aşağıdaki form yapısını kullanabilirsin:
 {
   "formName": "İletişim Formu",
   "formDescription": "Kullanıcıların iletişime geçmesini sağlayan form",
@@ -118,12 +64,35 @@ options özelliğini yalnızca select ve radio alanları için kullanın.
       "type": "select",
       "name": "konu",
       "label": "Konu",
+      "placeholder": "Lütfen konu seçin",
       "options": [
         { "value": "destek", "label": "Destek" },
         { "value": "bilgi", "label": "Bilgi Almak İstiyorum" },
         { "value": "sikayet", "label": "Şikayet" }
       ]
     }
+    // radio
+    {
+      "type": "radio",
+      "name": "cinsiyet",
+      "label": "Cinsiyetiniz",
+      "options": [
+        { "value": "erkek", "label": "Erkek" },
+        { "value": "kadin", "label": "Kadın" }
+      ]
+    }
+    // checkbox
+    {
+      "type": "checkbox",
+      "name": "hizmetler",
+      "label": "Hangi hizmetlerden faydalanmak istersiniz?",
+      "options": [
+        { "value": "web-tasarim", "label": "Web Tasarım" },
+        { "value": "seo", "label": "SEO" },
+        { "value": "sosyal-medya-yonetimi", "label": "Sosyal Medya Yönetimi" }
+      ]
+    }
+
   ]
 }
   `;
@@ -131,18 +100,12 @@ options özelliğini yalnızca select ve radio alanları için kullanın.
   const onCreateForm = async () => {
     setLoading(true);
     const result = await AiChatSession.sendMessage(
-      `Description: ${userInput}\n\n${PROMPT}`
+      `Description: ${userInput}\n\n${PROMPT}\n\nDönen yanıt **sadece geçerli bir JSON olmalıdır**. Açıklama veya metin içermemelidir.`
     );
-
-    console.log(result?.response?.text());
 
     setLoading(false);
 
-    const response = result?.response
-      ?.text()
-      .replaceAll("```json", "")
-      .replaceAll("```", "")
-      .trim();
+    const response = result?.response?.text()?.match(/\{[\s\S]*\}/)?.[0];
 
     if (response) {
       try {

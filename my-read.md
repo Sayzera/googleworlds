@@ -24,7 +24,8 @@
 - https://www.youtube.com/watch?v=s28yOCBVgGw (1.04)
 - https://www.tubeguruji.com/ 
 * where was it 
-- 1:20.53 
+
+https://www.youtube.com/watch?v=s28yOCBVgGw&t=9480s 2:38
 
 * VSCode
 - Yazıları alta alma özelliği (Word Wrap) --> Settings
