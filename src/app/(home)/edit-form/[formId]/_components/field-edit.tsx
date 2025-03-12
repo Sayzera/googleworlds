@@ -32,7 +32,6 @@ function FieldEdit({ field, onUpdate, onDelete }: Props) {
     field.placeholder || ""
   );
 
-
   return (
     <div className="flex items-center gap-x-2">
       <Popover>
